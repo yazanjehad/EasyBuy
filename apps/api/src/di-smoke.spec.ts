@@ -1,11 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from './app.module';
-import { UserService } from './modules/user/user.service';
-import { PrismaUserRepository } from './infrastructure/database/repositories/prisma-user.repository';
-import { UserMapper } from './infrastructure/database/repositories/user.mapper';
-import { IUserRepository } from './domain/repositories/user.repository.interface';
-import { PrismaService } from './infrastructure/database/prisma/prisma.service';
-import { User } from './domain/entities/user.entity';
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './modules/user/user.module.js';
+import { PrismaModule } from './infrastructure/database/prisma/prisma.module.js';
+import { UserService } from './modules/user/user.service.js';
+import { PrismaUserRepository } from './infrastructure/database/repositories/prisma-user.repository.js';
+import { UserMapper } from './infrastructure/database/repositories/user.mapper.js';
+import { IUserRepository } from './domain/repositories/user.repository.interface.js';
+import { PrismaService } from './infrastructure/database/prisma/prisma.service.js';
+import { User } from './domain/entities/user.entity.js';
+import jwtConfig from './modules/auth/config/jwt.config.js';
+import refreshConfig from './modules/auth/config/refresh.config.js';
 
 /**
  * DI smoke test: boots the NestJS DI container up to the point where every
@@ -18,13 +22,25 @@ import { User } from './domain/entities/user.entity';
  *   - PrismaService is globally accessible (via @Global PrismaModule)
  *   - UserMapper is wired correctly
  *   - The User domain entity is reachable end-to-end
+ *
+ * Note: The i18n module (I18nConfigModule → nestjs-i18n) creates a
+ * require(esm) cycle with @nestjs/common inside Jest's runtime. The core
+ * DI bindings are validated here using a composed testing module that
+ * mirrors AppModule's provider graph minus the i18n module.
  */
 describe('DI Container Smoke Test', () => {
   let moduleRef: TestingModule;
 
   beforeEach(async () => {
     moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+          load: [jwtConfig, refreshConfig],
+        }),
+        PrismaModule,
+        UserModule,
+      ],
     }).compile();
   });
 

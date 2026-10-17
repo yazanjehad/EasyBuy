@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user-dto';
-import { UserService } from '../user/user.service';
+import { CreateUserDto } from './dto/create-user-dto.js';
+import { UserService } from '../user/user.service.js';
 import { UnauthorizedException } from '@nestjs/common';
 import { verify } from 'argon2';
-import { AuthJwtPayload } from './types/auth-jwtPaylod';
+import { AuthJwtPayload } from './types/auth-jwtPaylod.js';
 import { JwtService } from '@nestjs/jwt';
-import refreshConfig from './config/refresh.config';
+import refreshConfig from './config/refresh.config.js';
 import type { ConfigType } from '@nestjs/config';
 
 @Injectable()

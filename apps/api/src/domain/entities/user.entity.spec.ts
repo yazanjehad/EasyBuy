@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from './user.entity.js';
 
 describe('User Domain Entity', () => {
   it('should create a User with all provided fields', () => {

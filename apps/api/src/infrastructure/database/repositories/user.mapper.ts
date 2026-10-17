@@ -1,5 +1,5 @@
 import { User as PrismaUser } from '@prisma/client';
-import { User } from '../../../domain/entities/user.entity';
+import { User } from '../../../domain/entities/user.entity.js';
 
 /**
  * Maps between the Prisma persistence model and the pure domain

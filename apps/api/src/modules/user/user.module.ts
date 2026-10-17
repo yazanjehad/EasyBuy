@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PrismaUserRepository } from '../../infrastructure/database/repositories/prisma-user.repository';
-import { IUserRepository } from '../../domain/repositories/user.repository.interface';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { PrismaUserRepository } from '../../infrastructure/database/repositories/prisma-user.repository.js';
+import { IUserRepository } from '../../domain/repositories/user.repository.interface.js';
+import { UserController } from './user.controller.js';
+import { UserService } from './user.service.js';
 
 /**
  * UserModule is the composition root for the User feature.

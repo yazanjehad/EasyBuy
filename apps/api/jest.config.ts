@@ -21,7 +21,16 @@ const config: Config = {
     ],
   },
   extensionsToTreatAsEsm: ['.ts'],
-  moduleNameMapper: pathsToModuleNameMapper(paths, { prefix: '<rootDir>/' }),
+  transformIgnorePatterns: [
+    'node_modules/(?!(@nestjs/|nestjs-i18n/|@prisma/|passport/|passport-local/|passport-jwt/|argon2/|chokidar/|yaml/|cookie/|string-format/|@messageformat/))',
+  ],
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(paths, { prefix: '<rootDir>/' }),
+    // Node ESM requires explicit `.js` extensions on relative imports, but the
+    // sources are `.ts` files. Jest's resolver doesn't perform TypeScript's
+    // `.js` → `.ts` substitution, so strip the extension back off here.
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   collectCoverageFrom: [
     'src/**/*.(t|j)s',
     'libs/**/*.(t|j)s',

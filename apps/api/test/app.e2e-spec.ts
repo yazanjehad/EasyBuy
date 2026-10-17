@@ -1,8 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { App } from 'supertest/types';
-import { AppModule } from './../src/app.module';
+import { AppModule } from './../src/app.module.js';
+
+/**
+ * The HTTP application type supertest accepts as its first argument.
+ * Derived from the main `supertest` export because the `supertest/types`
+ * subpath is not exposed to Node16/NodeNext module resolution.
+ */
+type App = Parameters<typeof request>[0];
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;

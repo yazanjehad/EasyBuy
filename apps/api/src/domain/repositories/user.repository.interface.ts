@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from '../entities/user.entity.js';
 
 /**
  * Payload required to create a new User.

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../../../domain/entities/user.entity';
+import { User } from '../../../domain/entities/user.entity.js';
 import {
   CreateUserParams,
   IUserRepository,
-} from '../../../domain/repositories/user.repository.interface';
-import { PrismaService } from '../prisma/prisma.service';
-import { UserMapper } from './user.mapper';
+} from '../../../domain/repositories/user.repository.interface.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { UserMapper } from './user.mapper.js';
 
 /**
  * Prisma implementation of the {@link IUserRepository} contract.

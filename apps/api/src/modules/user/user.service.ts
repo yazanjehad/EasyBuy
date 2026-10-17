@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
-import { CreateUserDto } from './dto/create-user-dto';
-import { IUserRepository } from '../../domain/repositories/user.repository.interface';
+import { CreateUserDto } from './dto/create-user-dto.js';
+import { IUserRepository } from '../../domain/repositories/user.repository.interface.js';
 
 /**
  * Application service (use-case orchestrator) for Users.
