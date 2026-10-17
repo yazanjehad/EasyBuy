@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  name          String
+  email         String          @unique
+  password      String
+  posts         Post[]
+  comments      Comment[]
+  profileInfo   ProfileInfo?
+  usersToGroups UsersToGroups[]
+
+  @@map("users")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  authorId  Int       @map("author_id")
+  author    User      @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comments  Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  text     String
+  authorId Int
+  postId   Int
+  author   User   @relation(fields: [authorId], references: [id])
+  post     Post   @relation(fields: [postId], references: [id])
+
+  @@map("comments")
+}
+
+model ProfileInfo {
+  id       Int    @id @default(autoincrement())
+  userId   Int    @unique
+  metadata Json
+  user     User   @relation(fields: [userId], references: [id])
+
+  @@map("profile_info")
+}
+
+model Group {
+  id            Int             @id @default(autoincrement())
+  name          String
+  usersToGroups UsersToGroups[]
+
+  @@map("groups")
+}
+
+model UsersToGroups {
+  userId  Int
+  groupId Int
+  user    User  @relation(fields: [userId], references: [id])
+  group   Group @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+  @@map("users_to_groups")
+}
