@@ -48,6 +48,7 @@ export class I18nValidationFilter implements ExceptionFilter {
   ) {}
 
   async catch(exception: unknown, host: ArgumentsHost): Promise<void> {
+    console.error('🔥 EXCEPTION CAUGHT BY FILTER:', exception);
     const ctx = host.switchToHttp();
     const res = ctx.getResponse();
     const req = ctx.getRequest();

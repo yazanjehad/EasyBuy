@@ -12,11 +12,13 @@
     "SUCCESS": "نجحت العملية"
   },
   "error": {
-    "INTERNAL_SERVER_ERROR": "خطأ في الخادم الداخلي",
+    "USER_EXISTS": "المستخدم موجود مسبقاً",
+    "INTERNAL_SERVER_ERROR": "حدث خطأ داخلي في الخادم",
     "BAD_REQUEST": "طلب غير صالح",
     "NOT_FOUND": "المورد غير موجود",
     "UNAUTHORIZED": "غير مخول",
     "FORBIDDEN": "ممنوع",
-    "VALIDATION_FAILED": "فشلت عملية التحقق من الصلاحيات"
+    "VALIDATION_FAILED": "فشلت عملية التحقق من الصلاحيات",
+    "USER_ALREADY_EXISTS": "المستخدم موجود بالفعل"
   }
 }

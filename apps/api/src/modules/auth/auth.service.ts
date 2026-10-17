@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user-dto.js';
 import { UserService } from '../user/user.service.js';
 import { UnauthorizedException } from '@nestjs/common';
@@ -19,9 +19,10 @@ export class AuthService {
 
   async registerUser(createUserDto: CreateUserDto) {
     const user = await this.userService.findByEmail(createUserDto.email);
-    if (user) {
-      throw new Error('User already exists');
-    }
+   if (user) {
+    // استخدم ConflictException مع مفتاح ترجمة يبدأ بـ common.
+    throw new ConflictException('common.error.USER_EXISTS');
+  }
     return await this.userService.create(createUserDto);
   }
 
